@@ -28,7 +28,7 @@ import hu.poszeidon.spring.service.UserService;
 public class AppMain {
 
 	public static void main(String[] args) {
-	/*	AbstractApplicationContext context = new AnnotationConfigApplicationContext(AppMain.class);
+		AbstractApplicationContext context = new AnnotationConfigApplicationContext(AppMain.class);
 		//UserService service = (UserService) context.getBean("userService");
 		//
 		UserService service = (UserService) context.getBean("userService");
@@ -85,7 +85,7 @@ public class AppMain {
 		}
 
 		System.out.println("asd");
-		context.close();*/
+		context.close();
 	}
 
 }
