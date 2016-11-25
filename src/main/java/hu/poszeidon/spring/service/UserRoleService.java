@@ -3,12 +3,13 @@ package hu.poszeidon.spring.service;
 import java.util.List;
 
 import hu.poszeidon.spring.model.UserRole;
+import hu.poszeidon.spring.model.UserRoleType;
 
 public interface UserRoleService {
-    UserRole findById(int id);
+    UserRole findByOne(int id);
+       
+     
+    UserRole findByUserRoleType(UserRoleType userRoleType);
     
-    UserRole findByType(String type);
-     
-    List<UserRole> findAll();
-     
+ //   List<UserRole> findAll();
 }

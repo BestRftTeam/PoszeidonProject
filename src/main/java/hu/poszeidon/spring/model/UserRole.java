@@ -4,10 +4,13 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "USER_ROLE")
@@ -15,7 +18,12 @@ public class UserRole implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
+	
+	@NotNull
+	@Column(name = "USER_ROLE_TYPE", length = 15, unique = true, nullable = false)
+	@Enumerated(EnumType.STRING)
+	private UserRoleType userRoleType;
+/*
 	@Column(name = "TYPE", length = 15, unique = true, nullable = false)
 	private String type = UserRoleType.STUDENT.getUserRoleType();
 
@@ -72,7 +80,28 @@ public class UserRole implements Serializable{
 	}
 	
 	
-	
+	*/
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public UserRoleType getUserRoleType() {
+		return userRoleType;
+	}
+
+	public void setUserRoleType(UserRoleType userRoleType) {
+		this.userRoleType = userRoleType;
+	}
+
+	@Override
+	public String toString() {
+		return "UserRole [id=" + id + ", userRoleType=" + userRoleType + "]";
+	}
 	
 
 }
