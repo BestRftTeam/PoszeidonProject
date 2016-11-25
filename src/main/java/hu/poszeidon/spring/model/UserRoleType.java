@@ -1,11 +1,17 @@
 package hu.poszeidon.spring.model;
 
 public enum UserRoleType {
-	STUDENT("STUDENT"),
-	PARENT("PARENT"),
-	ADMIN("ADMIN");
+	STUDENT,
+	PARENT,
+	ADMIN,
+	TEACHER;
 	
-	String userRoleType;
+/*	
+ 	STUDENT("STUDENT"),
+	PARENT("PARENT"),
+	ADMIN("ADMIN"),
+	TEACHER("TEACHER"); 
+ String userRoleType;
 	
 	private UserRoleType(String userRoleType){
 		this.userRoleType = userRoleType;
@@ -13,5 +19,5 @@ public enum UserRoleType {
 	
 	public String getUserRoleType(){
 		return userRoleType;
-	}
+	}*/
 }

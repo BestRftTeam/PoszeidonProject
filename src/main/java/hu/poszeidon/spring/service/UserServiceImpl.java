@@ -6,40 +6,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import hu.poszeidon.spring.dao.UserDao;
 import hu.poszeidon.spring.model.User;
+import hu.poszeidon.spring.repositories.UserRepository;
+
 
 @Service("userService")
-@Transactional
 public class UserServiceImpl implements UserService {
-
 	@Autowired
-	private UserDao dao;
-	
-	public void saveUser(User user) {
-		dao.saveUser(user);
+	private  UserRepository userRepository;
+
+	@Transactional
+	public List<User> findAll() {
+		return (List<User>)userRepository.findAll();
 	}
 
-	public List<User> findAllUsers() {
-		return dao.findAllUsers();
+	@Transactional
+	public void save(User user) {
+		userRepository.save(user);
 	}
 
-	@Override
-	public void deleteUserByPoId(String PoId) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public User findByPoId(String PoId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void updateUser(User user) {
-		// TODO Auto-generated method stub
-
+	@Transactional
+	public User findByPoszId(String poszId) {
+		return userRepository.findByPoszId(poszId);
 	}
 
 }
