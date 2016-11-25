@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+<html lang=hu>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<script src="../../static/js/jquery.min.js"></script>
+		<link href = "../../static/css/bootstrap.css" rel="stylesheet" type="text/css">
+
+		<style>
+			table{
+				background-color: yellow;
+				border: 1px solid black;
+			}
+			td{
+				background-color: yellow;
+				text-align: left;
+
+			}
+			body{
+				background-color: #E6E6FA;
+			}
+			#KerdesHozzaadoHead{
+				background-color: green;
+			}
+			p{
+				text-align: center;
+			}
+			#KerdesHozzaadoBody{
+				background-color: lightblue;
+			}
+		</style>
+	</head>
+	<body>
+		<div id = "KerdesHozzaadoHead" class="container" >
+			<p>Hány kérdést szeretne létrehozni?
+				<input id = "i_KerdesekSzama" onkeypress='return event.charCode >= 48 && event.charCode <= 57' style = "width : 30px;">
+				<button id = "b_KerdesHozzaad" onclick="e_KerdesHozzaad()">+</button>
+			</p>
+		</div>
+		<div id = "KerdesHozzaadoBody" class="container" align="center" ></div>
+		<script>
+			sessionStorage.setItem("kerdesszam",0);
+			var idk = new Array();
+			function KerdestHozzaad_f(){
+				var div = document.getElementById("KerdesHozzaadoBody");
+				
+				//kinézetcheat:D
+				var szokoz = document.createElement("Label");
+				szokoz.innerHTML = "    ";
+				var szokoz1 = document.createElement("Label");
+				szokoz1.innerHTML = "    ";
+				var szokoz2 = document.createElement("Label");
+				szokoz2.innerHTML = "    ";
+				//tábla létrehozása
+				var table = document.createElement("table");
+				var k_szam = parseInt(sessionStorage.getItem("kerdesszam"));
+				idk.push(2);
+				table.id = "Table_" + k_szam;
+				table.class = "table";
+				//table.border = 0;
+				table.style.width = "550px";
+				//1. sor objektumai
+				var input = document.createElement("input");
+				input.id = "Kerdes_" + k_szam;
+				input.style.width = "450px";
+				var button = document.createElement("BUTTON");
+				button.id = "Button_" + k_szam;
+				button.innerHTML = "+";
+				button.onclick = Valaszok;
+
+				//1. sor
+				var row0 = table.insertRow(0);
+				var cell0 = row0.insertCell(0);
+				
+				cell0.appendChild(input);
+				cell0.appendChild(szokoz);
+				cell0.appendChild(button);
+				//2. sor
+				var row1 = table.insertRow(1);
+				var cell1 = row1.insertCell(0);
+				cell1.id = "Cell_"+k_szam;
+				//2. sor objektumai
+				var input_a1 = document.createElement("input");
+				input_a1.id = k_szam +"_"+1;
+				input_a1.style.width = "450px";
+				var c_box1 = document.createElement("input");
+				c_box1.id = "c_"+k_szam+"_"+1;
+				c_box1.type = "checkbox";
+				var input_a2 = document.createElement("input");
+				input_a2.id = k_szam +"_"+2;
+				input_a2.style.width = "450px";
+				var c_box2 = document.createElement("input");
+				c_box2.id = "c_"+k_szam+"_"+2;
+				c_box2.type = "checkbox";
+				
+				cell1.appendChild(input_a1);
+				cell1.appendChild(szokoz1);
+				cell1.appendChild(c_box1);
+
+				cell1.appendChild(input_a2);
+				cell1.appendChild(szokoz2);
+				cell1.appendChild(c_box2);
+				
+				
+				div.appendChild(table);
+			}
+			function e_KerdesHozzaad(){
+				
+				if (sessionStorage.getItem("kerdesszam")==null) 
+					sessionStorage.setItem("kerdesszam",1);
+				else
+					var k_szam = parseInt(sessionStorage.getItem("kerdesszam"))+1;
+					sessionStorage.setItem("kerdesszam",k_szam);
+				
+				if (document.getElementById("i_KerdesekSzama").value=="")
+					var KerdesekSzama = 1;
+				else
+					var KerdesekSzama = document.getElementById("i_KerdesekSzama").value;
+				for (var i = 0; i < KerdesekSzama;i++){
+					KerdestHozzaad_f();
+					if (i != KerdesekSzama - 1) {
+						k_szam = k_szam + 1;
+						sessionStorage.setItem("kerdesszam",k_szam);
+					}
+				}
+			}
+			function Valaszok(){
+				var table = $(this).closest("table").attr("id");
+				var szokoz = document.createElement("Label");
+				szokoz.innerHTML = "    ";
+				var tmp = table.split("_");
+				var k_szam = parseInt(tmp[1]);
+				idk[k_szam-1] = idk[k_szam-1] + 1;
+				var cell = document.getElementById(table).rows[1].cells[0];
+				var input = document.createElement("input");
+				input.id = k_szam +"_"+idk[k_szam-1];
+				input.style.width = "450px";
+				var c_box = document.createElement("input");
+				c_box.id = "c_"+k_szam+"_"+idk[k_szam-1];
+				c_box.type = "checkbox";
+				cell.appendChild(input);
+				cell.appendChild(szokoz);
+				cell.appendChild(c_box);
+			}
+		</script>
+		
+		
+	</body>
+<html>
