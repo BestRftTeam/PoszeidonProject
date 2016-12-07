@@ -30,4 +30,9 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findByPoszId(poszId);
 	}
 
+	@Override
+	public User findByEmail(String Email) {
+		return userRepository.findByEmail(Email);
+	}
+
 }

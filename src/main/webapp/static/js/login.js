@@ -5,6 +5,7 @@ $("#login").click(function (){
 		  data: {	Username: $("#username").val(),
 					Password: $("#password").val() },
 		  success: function(responseText){
+			  window.sessionStorage("username","$(\"#username\").val()");
 			  window.location.assign(/pages/);
 		  },
 		  error: function(responseText){

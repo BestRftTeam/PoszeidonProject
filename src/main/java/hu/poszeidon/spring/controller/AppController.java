@@ -1,8 +1,13 @@
 package hu.poszeidon.spring.controller;
 
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,12 +20,40 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
+import hu.poszeidon.spring.model.User;
+import hu.poszeidon.spring.model.UserRole;
+import hu.poszeidon.spring.model.UserRoleType;
+import hu.poszeidon.spring.service.UserService;
+
 @Controller
 @RestController
 public class AppController  {
-
+	private UserService usv;
 	
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public HttpStatus loginPage(HttpServletRequest request, HttpServletResponse response) {
+    	User user = usv.findByEmail(request.getParameter("Username"));
+    	if (request.getParameter("Password").equals(user.getPassword()))return HttpStatus.OK;
+    	else return HttpStatus.BAD_REQUEST;
+    }
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public HttpStatus registerPage(HttpServletRequest request, HttpServletResponse response) {
+    	 Random rnd = new Random();
+    	 Set<UserRole> s = new HashSet<UserRole>();
+    	 UserRole ur = new UserRole();
+    	 ur.setUserRoleType(UserRoleType.STUDENT);
+    	 request.getParameter("Role");
+    	 s.add(ur);
+    	User user = new User(request.getParameter("First_Name")+request.getParameter("Last_Name")+rnd.nextInt(999999)+1,
+    			request.getParameter("First_Name"),request.getParameter("Last_Name"),
+    			request.getParameter("Password"),request.getParameter("Email"),
+    			s);
+    	if (request.getParameter("Password").equals(user.getPassword()))return HttpStatus.OK;
+    	else return HttpStatus.BAD_REQUEST;
+    }
+    
 	
+	/*
 	  @RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
 	    public String homePage(ModelMap model) {
 	        model.addAttribute("greeting", "Hi, Welcome to mysite");
@@ -69,5 +102,5 @@ public class AppController  {
 	            userName = principal.toString();
 	        }
 	        return userName;
-	    }
+	    }*/
 }

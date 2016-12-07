@@ -9,4 +9,5 @@ import hu.poszeidon.spring.model.User;
 public interface UserRepository extends BaseRepository<User, Integer> {
 	
 	User findByPoszId(String poszId);
+	User findByEmail(String Email);
 }
