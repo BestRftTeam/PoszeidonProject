@@ -6,7 +6,7 @@ $("#login").click(function (){
 					Password: $("#password").val() },
 		  success: function(responseText){
 			  window.sessionStorage("username","$(\"#username\").val()");
-			  window.location.assign(/pages/);
+			//  window.location.assign(/pages/);
 		  },
 		  error: function(responseText){
 			alert("Rossz felhasználónév/jelszó!");  
@@ -15,5 +15,8 @@ $("#login").click(function (){
 		});
 });
 $("#registration").click(function(){
-	window.location.assign("pages/register.html");
+/*	$.ajax({
+		  type: "GET",
+		  url: 'register',
+		});*/
 });

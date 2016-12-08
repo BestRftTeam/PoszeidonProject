@@ -7,6 +7,8 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,25 +20,40 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.mvc.AbstractController;
 
+import hu.poszeidon.spring.configuration.DbConfiguration;
 import hu.poszeidon.spring.model.User;
 import hu.poszeidon.spring.model.UserRole;
 import hu.poszeidon.spring.model.UserRoleType;
 import hu.poszeidon.spring.service.UserService;
 
 @Controller
-@RestController
+@Import(DbConfiguration.class)
 public class AppController  {
 	private UserService usv;
 	
+	@RequestMapping(value = {"/*"})
+	public String StartUp(){
+		return "/pages/index.html";
+	}
+
+	
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public HttpStatus loginPage(HttpServletRequest request, HttpServletResponse response) {
-    	User user = usv.findByEmail(request.getParameter("Username"));
-    	if (request.getParameter("Password").equals(user.getPassword()))return HttpStatus.OK;
-    	else return HttpStatus.BAD_REQUEST;
+    	//User user = usv.findByEmail(request.getParameter("Username"));
+    	/*if (request.getParameter("Password").equals(user.getPassword()))return HttpStatus.OK;
+    	else return HttpStatus.BAD_REQUEST;*/
+    	return HttpStatus.OK;
     }
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    
+    @RequestMapping(value = "/register")
+    public String Re(){
+    	return "register";
+    }
+    /*
+    @RequestMapping(value = "/pages/register", method = RequestMethod.GET)
     public HttpStatus registerPage(HttpServletRequest request, HttpServletResponse response) {
     	 Random rnd = new Random();
     	 Set<UserRole> s = new HashSet<UserRole>();
@@ -44,14 +61,18 @@ public class AppController  {
     	 ur.setUserRoleType(UserRoleType.STUDENT);
     	 request.getParameter("Role");
     	 s.add(ur);
+    	 System.out.println(s.toString());
     	User user = new User(request.getParameter("First_Name")+request.getParameter("Last_Name")+rnd.nextInt(999999)+1,
     			request.getParameter("First_Name"),request.getParameter("Last_Name"),
     			request.getParameter("Password"),request.getParameter("Email"),
     			s);
-    	if (request.getParameter("Password").equals(user.getPassword()))return HttpStatus.OK;
-    	else return HttpStatus.BAD_REQUEST;
+    	System.out.println(user.toString());
+    	//if (request.getParameter("Password").equals(user.getPassword()))return HttpStatus.OK;
+    	//else return HttpStatus.BAD_REQUEST;
+    	
+    	return HttpStatus.OK;
     }
-    
+    */
 	
 	/*
 	  @RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)

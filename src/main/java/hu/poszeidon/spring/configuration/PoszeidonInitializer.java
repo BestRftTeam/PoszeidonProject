@@ -1,5 +1,5 @@
-package hu.poszeidon.spring.configuration;
-/*
+/*package hu.poszeidon.spring.configuration;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;

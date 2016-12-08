@@ -1,4 +1,4 @@
-package hu.poszeidon.spring.configuration;
+/*package hu.poszeidon.spring.configuration;
 
 
 import java.util.HashSet;
@@ -88,4 +88,4 @@ public class AppMain {
 		context.close();
 	}
 
-}
+}*/

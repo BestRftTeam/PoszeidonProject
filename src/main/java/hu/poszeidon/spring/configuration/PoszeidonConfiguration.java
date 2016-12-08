@@ -1,4 +1,4 @@
-package hu.poszeidon.spring.configuration;
+/*package hu.poszeidon.spring.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -17,13 +17,8 @@ public class PoszeidonConfiguration {
     @Bean(name = "PoszeidonProject")
     public ViewResolver viewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setViewClass(JstlView.class);
-        viewResolver.setPrefix("/WEB-INF/views/");
-        viewResolver.setSuffix(".jsp");
  
         return viewResolver;
     }
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/static/**").addResourceLocations("/static/");
-    }
-}
+
+}*/
