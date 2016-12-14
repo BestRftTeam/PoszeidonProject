@@ -21,7 +21,7 @@ import hu.poszeidon.spring.service.UserService;
 
 
 
-
+/*
 @Configuration
 @Import(DbConfiguration.class)
 @ComponentScan(basePackages = "hu.poszeidon.spring")
@@ -53,7 +53,7 @@ public class AppMain {
 		//sanyi=service.findByPoszId("asd").getFirstName();
 		
 		//System.out.println("----------------------");
-		//System.out.println("valami :"+service.findByPoszId("alm").getFirstName()+"|");
+		System.out.println("valami===================== :"+service.findByEmail("kala_pala@gamil.com").getFirstName()+"-----------");
 		
 		
 		
@@ -89,3 +89,4 @@ public class AppMain {
 	}
 
 }
+*/

@@ -21,8 +21,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
- @EnableJpaRepositories(basePackages = "hu.poszeidon.spring.repositories")
-@ComponentScan({ "hu.poszeidon.spring.configuration" })
+@ComponentScan({ "hu.poszeidon.spring"})
+@EnableJpaRepositories(basePackages = "hu.poszeidon.spring.repositories")
 public class DbConfiguration {
 
 	@Bean
