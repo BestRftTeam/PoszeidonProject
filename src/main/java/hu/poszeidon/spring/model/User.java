@@ -58,6 +58,19 @@ public class User implements Serializable {
 			@JoinColumn(name = "COURSE_ID",referencedColumnName = "id") })
 	private Set<Course> courses ;
 
+	
+	public User(String poszId, String firstName, String lastName, String password, String email, Set<UserRole> userRoles) {
+	this.poszId = poszId;
+	this.firstName = firstName;
+	this.lastName = lastName;
+	this.password = password;
+	this.email = email;
+	this.userRoles = userRoles;
+}
+
+	public User() {
+	}
+
 	public int getId() {
 		return id;
 	}
