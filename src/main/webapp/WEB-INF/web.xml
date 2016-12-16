@@ -1,28 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	id="WebApp_ID" version="2.5">
-	 <display-name>PoszeidonProject</display-name>
-	 
-	 	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
-
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>
-			/WEB-INF/spring-security.xml
-		</param-value>
-	</context-param>
- <!-- 	 <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
-        
-    </welcome-file-list>
-    	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>-->
-    <!-- 
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>PoszeidonProject</display-name>
+  <welcome-file-list>
+    <welcome-file>/pages/index.html</welcome-file>
+  </welcome-file-list>
   <servlet>
     <servlet-name>login</servlet-name>
     <servlet-class>hu.poszeidon.spring.controller.login</servlet-class>
@@ -31,32 +12,87 @@
     <servlet-name>login</servlet-name>
     <url-pattern>/login/</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>LoginToReg</servlet-name>
+    <servlet-class>hu.poszeidon.spring.controller.LoginToReg
+		</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginToReg</servlet-name>
+    <url-pattern>/LoginToReg/</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>RegToLogin</servlet-name>
+    <servlet-class>hu.poszeidon.spring.controller.RegToLogin
+		</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RegToLogin</servlet-name>
+    <url-pattern>/pages/RegToLogin/</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Register</servlet-name>
+    <servlet-class>hu.poszeidon.spring.controller.Register
+		</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Register</servlet-name>
+    <url-pattern>/pages/Register/</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <display-name>Welcome</display-name>
+    <servlet-name>Welcome</servlet-name>
+    <servlet-class>hu.poszeidon.spring.controller.Welcome</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Welcome</servlet-name>
+    <url-pattern>/pages/Welcome/</url-pattern>
+  </servlet-mapping>
   
-  -->
-  <!-- Spring security -->
-  	<filter>
-		<filter-name>springSecurityFilterChain</filter-name>
-		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>springSecurityFilterChain</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-	
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>
-			/WEB-INF/spring/*.xml
-		</param-value>
-	</context-param>
-	
-  <!-- 
-    <servlet>
-	    <servlet-name>index</servlet-name>
-	    <servlet-class>hu.poszeidon.spring.controller.</servlet-class>
-	 </servlet>
-	 <servlet-mapping>
-	    <servlet-name>index</servlet-name>
-	    <url-pattern>/</url-pattern>
-	 </servlet-mapping> -->
+  <servlet>
+    <servlet-name>GetRole</servlet-name>
+    <servlet-class>hu.poszeidon.spring.controller.GetRole</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetRole</servlet-name>
+    <url-pattern>/pages/GetRole/</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>courses</servlet-name>
+    <servlet-class>hu.poszeidon.spring.controller.courses</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>courses</servlet-name>
+    <url-pattern>/pages/courses/</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>Save_course</servlet-name>
+    <servlet-class>hu.poszeidon.spring.controller.Save_course</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Save_course</servlet-name>
+    <url-pattern>/pages/Save_course/</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>allcourses</servlet-name>
+    <servlet-class>hu.poszeidon.spring.controller.allcourses</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>allcourses</servlet-name>
+    <url-pattern>/pages/allcourses/</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>Enroll</servlet-name>
+    <servlet-class>hu.poszeidon.spring.controller.Enroll</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Enroll</servlet-name>
+    <url-pattern>/pages/Enroll/</url-pattern>
+  </servlet-mapping>
+    
+
 </web-app>

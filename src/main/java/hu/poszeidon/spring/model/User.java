@@ -53,19 +53,18 @@ public class User implements Serializable {
 	private Set<UserRole> userRoles = new HashSet<UserRole>();
 	
 //	@NotEmpty
-	@ManyToMany(fetch = FetchType.EAGER)//cascade = CascadeType.ALL)//
+	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)//cascade = CascadeType.ALL)//
 	@JoinTable(name = "USER_COURSE", joinColumns = { @JoinColumn(name = "USER_ID",referencedColumnName = "id") }, inverseJoinColumns = {
 			@JoinColumn(name = "COURSE_ID",referencedColumnName = "id") })
 	private Set<Course> courses ;
 
 	
-	public User(String poszId, String firstName, String lastName, String password, String email, Set<UserRole> userRoles) {
+	public User(String poszId, String firstName, String lastName, String password, String email) {
 	this.poszId = poszId;
 	this.firstName = firstName;
 	this.lastName = lastName;
 	this.password = password;
 	this.email = email;
-	this.userRoles = userRoles;
 }
 
 	public User() {
@@ -138,14 +137,22 @@ public class User implements Serializable {
 	public void setCourses(Set<Course> courses) {
 		this.courses = courses;
 	}
-
+	public void addCourse(Course course) {
+		this.courses.add(course);
+	}
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", poszId=" + poszId + ", firstName=" + firstName + ", lastName=" + lastName
 				+ ", password=" + password + ", email=" + email + ", userRoles=" + userRoles + ", courses=" + courses
 				+ "]";
 	}
-
+	
+	public boolean HasCourse(String CourseName){
+		for (Course c : this.getCourses()){
+			if (c.getCourseName().equals(CourseName)) return true;
+		}
+		return false;
+	}
 
 
 

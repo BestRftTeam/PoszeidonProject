@@ -7,9 +7,13 @@
 <title>Courses</title>
 </head>
 <body>
-gridben kilistázva a kurzusok bal oldalt, rákattintva bejönnek jobbra
 <div class="row">
 	<div class="col-xs-6 col-sm-6 col-md-6" style="width: 20%">
+		<div id = "course_add"></div>
+		
+		<button id = "My_Courses" onclick="My_courses_F()" disabled class = "col-xs-6 col-sm-6 col-md-6">My Courses</button>
+		<button id = "All_Courses" onclick="All_courses_F()"  class = "col-xs-6 col-sm-6 col-md-6">All Courses</button>
+		
 		<table id = "courses_t" class="table table-striped table-hover">
 		</table>
 	</div>

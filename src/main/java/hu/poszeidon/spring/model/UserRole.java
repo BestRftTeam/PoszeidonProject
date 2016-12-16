@@ -23,6 +23,14 @@ public class UserRole implements Serializable{
 	@Column(name = "USER_ROLE_TYPE", length = 15, unique = true, nullable = false)
 	@Enumerated(EnumType.STRING)
 	private UserRoleType userRoleType;
+	
+	public UserRole(UserRoleType userRoleType) {
+			super();
+			this.userRoleType = userRoleType;
+		}
+	public UserRole() {
+
+	}
 /*
 	@Column(name = "TYPE", length = 15, unique = true, nullable = false)
 	private String type = UserRoleType.STUDENT.getUserRoleType();

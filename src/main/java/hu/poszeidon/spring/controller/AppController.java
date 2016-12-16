@@ -1,4 +1,4 @@
-package hu.poszeidon.spring.controller;
+/*package hu.poszeidon.spring.controller;
 
 import java.util.HashSet;
 import java.util.Random;
@@ -44,7 +44,7 @@ public class AppController  {
     public HttpStatus loginPage(HttpServletRequest request, HttpServletResponse response) {
     	//User user = usv.findByEmail(request.getParameter("Username"));
     	/*if (request.getParameter("Password").equals(user.getPassword()))return HttpStatus.OK;
-    	else return HttpStatus.BAD_REQUEST;*/
+    	else return HttpStatus.BAD_REQUEST;
     	return HttpStatus.OK;
     }
     
@@ -123,5 +123,5 @@ public class AppController  {
 	            userName = principal.toString();
 	        }
 	        return userName;
-	    }*/
-}
+	    }
+}*/

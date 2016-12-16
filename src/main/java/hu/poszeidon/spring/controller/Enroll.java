@@ -24,6 +24,7 @@ import org.springframework.web.util.CookieGenerator;
 
 import hu.poszeidon.spring.configuration.DbConfiguration;
 import hu.poszeidon.spring.configuration.PoszeidonConfiguration;
+import hu.poszeidon.spring.model.Course;
 import hu.poszeidon.spring.model.User;
 import hu.poszeidon.spring.model.UserRole;
 import hu.poszeidon.spring.repositories.UserRepository;
@@ -32,8 +33,8 @@ import hu.poszeidon.spring.service.UserService;
 /**
  * Servlet implementation class login
  */
-@WebServlet("/login")
-public class login extends InitServlet {
+@WebServlet("/pages/Enroll")
+public class Enroll extends InitServlet {
 	private static final long serialVersionUID = 2878267318695777395L;
 	
 
@@ -41,43 +42,12 @@ public class login extends InitServlet {
      * @see HttpServlet#HttpServlet()
      */
 /*
-    @Override
-    public final void init(ServletConfig config) throws ServletException {
-        super.init(config);
-       // WebApplicationContext wac = WebApplicationContextUtils.getWebApplicationContext(config.getServletContext());
-        //wac.getAutowireCapableBeanFactory().autowireBean(this);
-        
-        //AbstractApplicationContext context = new AnnotationConfigApplicationContext(PoszeidonConfiguration.class);
-		//UserService service = (UserService) context.getBean("userService");
-    }*/
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String Username = request.getParameter("Username");
-		String Password = request.getParameter("Password");
-		System.out.println(Username);
-		User user =(User) usv.findByEmail(Username);
-		//System.out.println(user.toString()); user.getUserRoles()
 
-		
-		if (user==null){
-			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			response.getWriter().write("null a user");
-		}else{
-			if (Password.equals(user.getPassword())){
-				String roles = "";
-				for (UserRole ur :  user.getUserRoles()){
-					roles += ur.getUserRoleType() + ";"; 
-				}
-				request.getSession().setAttribute("Username", Username);
-				request.getSession().setAttribute("role", roles);
-				//Cookie cookie = new Cookie("username", user.getEmail());
-				response.getWriter().write(request.getContextPath() + "/pages/welcome.html");
-				//response.getWriter().write(request.getSession().getAttribute("Username").toString());
-			}
-		}
 		
 	}
 
@@ -85,9 +55,16 @@ public class login extends InitServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("rossz");
-		// TODO Auto-generated method stub
-		//doGet(request, response);
+		
+		User user = usv.findByEmail(request.getSession().getAttribute("Username").toString());
+		Course course = cserv.findBycourseName(request.getParameter("Course_Name").toString());
+		
+		user.addCourse(course);
+		System.out.println(course);
+		System.out.println(user);
+		usv.save(user);
+
+
 	}
 
 }

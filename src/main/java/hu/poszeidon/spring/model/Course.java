@@ -1,12 +1,15 @@
 package hu.poszeidon.spring.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -32,15 +35,34 @@ public class Course implements Serializable{
 	@Column(name = "COURSE_NAME", nullable = false)
 	private String courseName;
 	
+	//private String courseLeader;
 	private String courseLeader;
-	//private User courseLeader;
 	
 	@ManyToMany(fetch = FetchType.EAGER)//cascade = CascadeType.ALL)//
 	@JoinTable(name = "USER_COURSE", joinColumns = { @JoinColumn(name = "COURSE_ID",referencedColumnName = "id") }, inverseJoinColumns = {
 			@JoinColumn(name = "USER_ID",referencedColumnName = "id") })
 	private Set<User> studentList;
+	
+	
+	@ElementCollection
+	@CollectionTable(name = "LEARNING")
+	private List<Learning> learnings = new ArrayList<Learning>();
+	
+	
+	@ElementCollection
+	@CollectionTable(name = "TEST")
+	private List<Teszt> tests = new ArrayList<Teszt>();
 
 	
+	public Course() {
+
+	}
+	
+	public Course(String courseName, String courseLeader) {
+		this.courseName = courseName;
+		this.courseLeader = courseLeader;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -56,19 +78,8 @@ public class Course implements Serializable{
 	public void setCourseName(String courseName) {
 		this.courseName = courseName;
 	}
-/*
+
 //	@ManyToMany(mappedBy = "COURSE")
-	public User getCourseLeader() {
-		return courseLeader;
-	}
-
-	public void setCourseLeader(User courseLeader) {
-		this.courseLeader = courseLeader;
-	}
-*/
-
-	
-
 	public String getCourseLeader() {
 		return courseLeader;
 	}
@@ -77,6 +88,20 @@ public class Course implements Serializable{
 		this.courseLeader = courseLeader;
 	}
 
+
+	
+/*
+	public String getCourseLeader() {
+		return courseLeader;
+	}
+
+	public void setCourseLeader(String courseLeader) {
+		this.courseLeader = courseLeader;
+	}
+	
+	*/
+
+	
 	public Set<User> getStudentList() {
 		return studentList;
 	}
@@ -84,10 +109,31 @@ public class Course implements Serializable{
 		this.studentList = studentList;
 	}
 
+	
+	
+	
+	public List<Learning> getLearnings() {
+		return learnings;
+	}
+
+	public void setLearnings(List<Learning> learnings) {
+		this.learnings = learnings;
+	}
+
+	public List<Teszt> getTests() {
+		return tests;
+	}
+
+	public void setTests(List<Teszt> tests) {
+		this.tests = tests;
+	}
+
 	@Override
 	public String toString() {
-		return "Course [id=" + id + "]";
+		return "Course [id=" + id + ", courseName=" + courseName + ", courseLeader=" + courseLeader + "]";
 	}
+
+	
 
 
 	

@@ -30,7 +30,10 @@ public class CourseServiceImpl implements CourseService {
 		courseRepository.save(course);
 		
 	}
-
+	@Transactional
+	public Course findBycourseName(String courseName) {
+		return (Course) courseRepository.findBycourseName(courseName);
+	}
 	
 
 }

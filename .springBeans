@@ -9,7 +9,6 @@
 	<configs>
 	</configs>
 	<autoconfigs>
-		<config>src/main/webapp/WEB-INF/mvc-dispatcher-servlet.xml</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>

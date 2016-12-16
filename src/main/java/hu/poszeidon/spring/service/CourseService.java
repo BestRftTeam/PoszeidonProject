@@ -9,6 +9,7 @@ public interface CourseService {
 	
 	List<Course> findAll();
 	
+	Course findBycourseName(String courseName);
 	
 	void save(Course course);
 }
