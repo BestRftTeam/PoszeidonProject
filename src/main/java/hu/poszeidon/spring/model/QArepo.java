@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -45,5 +46,22 @@ public class QArepo {
 	public void setQuestion(String question) {
 		this.question = question;
 	}
+
+	public List<String> getAnswerOptions() {
+		return answerOptions;
+	}
+
+	public void setAnswerOptions(List<String> answerOptions) {
+		this.answerOptions = answerOptions;
+	}
+
+	public List<Boolean> getAnswers() {
+		return answers;
+	}
+
+	public void setAnswers(List<Boolean> answers) {
+		this.answers = answers;
+	}
+	
 
 }
