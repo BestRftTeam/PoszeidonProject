@@ -23,6 +23,9 @@ public class QArepo {
 	@Column(name = "QUESTION")
 	private String question;
 	
+	@Column(name = "SCORE")
+	private String score;
+	
 	@ElementCollection
 	private List<String> answerOptions = new ArrayList<String>();
 	
@@ -61,6 +64,14 @@ public class QArepo {
 
 	public void setAnswers(List<Boolean> answers) {
 		this.answers = answers;
+	}
+
+	public String getScore() {
+		return score;
+	}
+
+	public void setScore(String score) {
+		this.score = score;
 	}
 	
 
