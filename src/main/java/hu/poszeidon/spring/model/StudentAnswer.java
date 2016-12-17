@@ -5,21 +5,33 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CollectionId;
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "STUDENT_ANSWER")
+//@TableGenerator(name="ids_generator", table="IDS")
 //@Embeddable
 public class StudentAnswer {
 
@@ -38,13 +50,12 @@ public class StudentAnswer {
 	@Column(name = "SUM_SCORE")
 	private double sumScore;
 	
-	@ElementCollection
+	@ElementCollection(fetch=FetchType.EAGER)
 	private List<Double> scoreList = new ArrayList<Double>();
 	
-//	@ElementCollection
-//	@CollectionTable(name="COLLECTION")
-	@Embedded
-	private Collection<List<Boolean>> collection = new ArrayList<>();
+
+	@ElementCollection(fetch=FetchType.EAGER)
+	private List<Boolean> answerList = new ArrayList<Boolean>();
 
 	public int getId() {
 		return id;
@@ -85,21 +96,24 @@ public class StudentAnswer {
 	public void setScoreList(List<Double> scoreList) {
 		this.scoreList = scoreList;
 	}
-/*
-	public Collection<List<Boolean>> getCollection() {
-		return collection;
+
+	
+    public List<Boolean> getAnswerList() {
+		return answerList;
 	}
 
-	public void setCollection(Collection<List<Boolean>> collection) {
-		this.collection = collection;
+	public void setAnswerList(List<Boolean> answerList) {
+		this.answerList = answerList;
 	}
-*/	
-    private void addScoretoList(Double score){
+
+	private void addScoretoList(Double score){
     	this.scoreList.add(score);
     }
-/*	
-    private void addListtoCollection(List<Boolean> list){
-    	this.collection.add(list);
+
+	
+    private void addAnswertoList(Boolean bool){
+    	this.answerList.add(bool);
     }
-  */  
+
+
 }

@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,10 +27,10 @@ public class QArepo {
 	@Column(name = "SCORE")
 	private String score;
 	
-	@ElementCollection
+	@ElementCollection(fetch=FetchType.EAGER)
 	private List<String> answerOptions = new ArrayList<String>();
 	
-	@ElementCollection
+	@ElementCollection(fetch=FetchType.EAGER)
 	private List<Boolean> answers = new ArrayList<Boolean>();
 	
 	
