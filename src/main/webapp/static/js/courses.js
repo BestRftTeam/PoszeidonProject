@@ -1,5 +1,6 @@
 	function Course_F(){
 		var coursename = document.getElementById(this.id).innerHTML;
+		window.sessionStorage.setItem("coursename",coursename);
 		$.ajax({
 			url: "course",
 			type:"GET",
@@ -11,7 +12,7 @@
 					if (k!=="Enrolled"){
 						var tr = table.insertRow(-1);
 						var td = tr.insertCell(0);
-						td.id = "course_"+k;
+						td.id = "course_"+v;
 						td.innerHTML = v;
 					}else{
 						if (v!=="Yes"){
@@ -25,19 +26,56 @@
 								cell.appendChild(but);
 							}
 						}else{
+							Learnings_F();
 							if (document.getElementById("new_course_name")!==null){
 							var row = table.insertRow(-1);
 							var cell = row.insertCell(0);
-							var upload = document.createElement("INPUT");
-							upload.setAttribute("type", "file");
-							upload.id = "New_Learning";
-							upload.innerHTML = "New Learning";
-							cell.appendChild(upload);
+							cell.innerHTML = "<form method=\"POST\" action=\"upload\" enctype=\"multipart/form-data\" >\
+            File:\
+            <input type=\"file\" name=\"file\" id=\"file\" /> <br/>\
+            Destination:\
+            <input type=\"text\" value=\"../Learnings\" name=\"destination\" disabled/>\
+            </br>\
+            <input value="+window.sessionStorage.getItem("coursename")+" name=coursename hidden />\
+            		<input type=\"submit\" value=\"Upload\" name=\"upload\" id=\"upload\" />\
+        </form>";
+							/*var erow = table.insertRow(-1);
+							var ecell = erow.insertCell(0);*/
+							var ebut = document.createElement("BUTTON");
+							ebut.innerHTML = "Add Exam";
+							ebut.id = "AddExam";
+							ebut.onclick = function(){
+								window.location.assign("UrlapKeszito.html");
+								
+							}
+							cell.appendChild(ebut);
 							}
 						}
 					}
 				});
 				
+			}
+		});
+	}
+	function File_Download_F(){
+
+
+		
+	}
+	function Learnings_F(){
+		$.ajax({
+			url: "Learnings",
+			data: {courseName:window.sessionStorage.getItem("coursename")},
+			success:function(responseText){
+				if (responseText.length>4){
+					var table = document.getElementById("course_t");
+					$.each($.parseJSON(responseText), function(k,v) {
+						var tr = table.insertRow(-1);
+						var td = tr.insertCell(0);
+						var name = v.Learning.split("/");
+						td.innerHTML = "<a href="+v.Learning+" download="+name[2]+">"+name[2]+"</a>";
+					});
+				}
 			}
 		});
 	}
@@ -58,7 +96,7 @@
 	function Enroll_F(){
 		$.ajax({
 			url: "Enroll",
-			data: {Course_Name: document.getElementById("course_courseName").innerHTML},
+			data: {Course_Name: window.sessionStorage.getItem("coursename")},
 			success: function(responseText){
 				alert("You have been Enrolled for this course");
 				document.getElementById("Enroll").remove();
@@ -151,24 +189,25 @@
 						but.id = "but";
 						but.innerHTML = "+";
 						but.onclick = function(){
-							$.ajax({
-								url: "Save_course",
-								data: {Course_Name:document.getElementById("new_course_name").value},
-								type: "POST",
-								success: function(responseText){
-									var table = document.getElementById("courses_t");
-									var newCours_r = table.insertRow(0);
-									var newCours_c = newCours_r.insertCell(0);
-									newCours_c.id = "courses_"+document.getElementById("new_course_name").value;
-									newCours_c.innerHTML = document.getElementById("new_course_name").value;
-									newCours_c.onclick = Course_F;
-									document.getElementById("new_course_name").value = "";
-								},
-								error: function(responseText){
-									
-								}
-							});
-							
+							if(document.getElementById("new_course_name").value!==""){
+								$.ajax({
+									url: "Save_course",
+									data: {Course_Name:document.getElementById("new_course_name").value},
+									type: "POST",
+									success: function(responseText){
+										var table = document.getElementById("courses_t");
+										var newCours_r = table.insertRow(0);
+										var newCours_c = newCours_r.insertCell(0);
+										newCours_c.id = "courses_"+document.getElementById("new_course_name").value;
+										newCours_c.innerHTML = document.getElementById("new_course_name").value;
+										newCours_c.onclick = Course_F;
+										document.getElementById("new_course_name").value = "";
+									},
+									error: function(responseText){
+										
+									}
+								});
+							}
 						}
 						div.appendChild(input);
 						div.appendChild(but);

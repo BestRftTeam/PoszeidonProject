@@ -7,6 +7,18 @@ function Page(param){
 	frame.setAttribute("id","framePage");
 	document.getElementById("pages_b").appendChild(frame);
 }
+function Logout(){
+	$.ajax({
+		url: "Logout",
+		success: function(responseText){
+			window.location.assign("../index.html");
+		},
+		error: function(responseText){
+			alert(responseText.responseText);
+		}
+	});
+	
+}
 $(document).ready(function(){
 	$.ajax({
 			url: "Welcome",

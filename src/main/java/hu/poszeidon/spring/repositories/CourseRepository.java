@@ -11,5 +11,5 @@ public interface CourseRepository extends BaseRepository<Course, Integer> {
 
 	Course findBycourseName(String courseName);
 	
-
+	Course findById(int id);
 }

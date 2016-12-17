@@ -1,3 +1,4 @@
+
 package hu.poszeidon.spring.repositories;
 
 import org.springframework.stereotype.Repository;

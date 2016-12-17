@@ -94,5 +94,39 @@
     <url-pattern>/pages/Enroll/</url-pattern>
   </servlet-mapping>
     
-
+  <servlet>
+    <servlet-name>FileUploadServlet</servlet-name>
+    <servlet-class>hu.poszeidon.spring.controller.FileUploadServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FileUploadServlet</servlet-name>
+    <url-pattern>/pages/upload</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>Learnings</servlet-name>
+    <servlet-class>hu.poszeidon.spring.controller.Learnings</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Learnings</servlet-name>
+    <url-pattern>/pages/Learnings/</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>Exams</servlet-name>
+    <servlet-class>hu.poszeidon.spring.controller.Exams</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Exams</servlet-name>
+    <url-pattern>/pages/Exams/</url-pattern>
+  </servlet-mapping>  
+  
+  <servlet>
+    <servlet-name>Logout</servlet-name>
+    <servlet-class>hu.poszeidon.spring.controller.Logout</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Logout</servlet-name>
+    <url-pattern>/pages/Logout/</url-pattern>
+  </servlet-mapping>
 </web-app>

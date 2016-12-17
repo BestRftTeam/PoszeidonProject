@@ -26,6 +26,8 @@ public class InitServlet extends HttpServlet{
 	public UserRoleService urs;
 	@Autowired
 	public CourseService cserv;
+
+
 	
     @Override
     public final void init(ServletConfig config) throws ServletException {

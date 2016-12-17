@@ -2,13 +2,25 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Exams</title>
+<link rel='stylesheet prefetch' href='../static/css/bootstrap.css'>
+<script type="text/javascript" src="../static/js/jquery.min.js"></script>
 </head>
 <body>
-<div>
-	<div>
-	gridben kilistázva a vizsgák bal oldalt, rákattintva bejönnek jobbra
+<div class="row">
+	<div class="col-xs-6 col-sm-6 col-md-6" style="width: 20%">
+		<div id = "exam_add"></div>
+		<table id = "exams_t" class="table table-striped table-hover">
+		</table>
 	</div>
+	<div class="col-xs-6 col-sm-6 col-md-6">
+		<table id = "exam_t">
+		<tr>
+		</tr>
+		</table>
+	</div>	
 </div>
+
+<script type="text/javascript" src="../static/js/Exams.js"></script>
 </body>
 </html>

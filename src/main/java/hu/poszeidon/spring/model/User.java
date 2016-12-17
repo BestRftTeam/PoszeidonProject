@@ -58,7 +58,16 @@ public class User implements Serializable {
 			@JoinColumn(name = "COURSE_ID",referencedColumnName = "id") })
 	private Set<Course> courses ;
 
+
 	
+	public User(String poszId, String firstName, String lastName, String password, String email, Set<UserRole> userRoles) {
+	this.poszId = poszId;
+	this.firstName = firstName;
+	this.lastName = lastName;
+	this.password = password;
+	this.email = email;
+	this.userRoles = userRoles;
+}
 	public User(String poszId, String firstName, String lastName, String password, String email) {
 	this.poszId = poszId;
 	this.firstName = firstName;
@@ -146,7 +155,6 @@ public class User implements Serializable {
 				+ ", password=" + password + ", email=" + email + ", userRoles=" + userRoles + ", courses=" + courses
 				+ "]";
 	}
-	
 	public boolean HasCourse(String CourseName){
 		for (Course c : this.getCourses()){
 			if (c.getCourseName().equals(CourseName)) return true;
