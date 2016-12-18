@@ -39,7 +39,7 @@ public class StudentAnswer {
 	private int id;
 
 	@NotEmpty
-	@Column(name = "TEST_ID", unique = true, nullable = false)
+	@Column(name = "TEST_ID", nullable = false)
 	private int testID;
 
 	@Column(name = "TEST_NAME")
