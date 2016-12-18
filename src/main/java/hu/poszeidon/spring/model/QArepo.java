@@ -25,7 +25,7 @@ public class QArepo {
 	private String question;
 	
 	@Column(name = "SCORE")
-	private String score;
+	private int score;
 	
 	@ElementCollection(fetch=FetchType.EAGER)
 	private List<String> answerOptions = new ArrayList<String>();
@@ -67,13 +67,14 @@ public class QArepo {
 		this.answers = answers;
 	}
 
-	public String getScore() {
+	public int getScore() {
 		return score;
 	}
 
-	public void setScore(String score) {
+	public void setScore(int score) {
 		this.score = score;
 	}
-	
+
+
 
 }
