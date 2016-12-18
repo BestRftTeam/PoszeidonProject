@@ -31,31 +31,51 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "STUDENT_ANSWER")
-//@TableGenerator(name="ids_generator", table="IDS")
-//@Embeddable
 public class StudentAnswer {
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@NotEmpty
 	@Column(name = "TEST_ID", unique = true, nullable = false)
 	private int testID;
-	
+
 	@Column(name = "TEST_NAME")
 	private String testName;
-	
+
 	@Column(name = "SUM_SCORE")
 	private double sumScore;
-	
-	@ElementCollection(fetch=FetchType.EAGER)
-	private List<Double> scoreList = new ArrayList<Double>();
-	
 
-	@ElementCollection(fetch=FetchType.EAGER)
+	@ElementCollection(fetch = FetchType.EAGER)
+	private List<Double> scoreList = new ArrayList<Double>();
+
+	@ElementCollection(fetch = FetchType.EAGER)
 	private List<Boolean> answerList = new ArrayList<Boolean>();
+
+	public void examination(Teszt tests) {
+		int ansListIndex = 0;
+
+		for (QArepo qarepo : tests.getTestSheet()) {
+			double score = 0.0;
+			double mod = (double) qarepo.getScore() / (double) qarepo.getAnswers().size();
+			for (Boolean bol : qarepo.getAnswers()) {
+				if (bol == this.answerList.get(ansListIndex)) {
+					score += mod;
+				} else {
+					score -= mod;
+				}
+				ansListIndex += 1;
+			}
+			if (score < 0.0) {
+				this.scoreList.add(0.0);
+			} else {
+				this.scoreList.add(score);
+			}
+
+		}
+		this.sumScore = this.scoreList.stream().mapToDouble(Double::doubleValue).sum();
+	}
 
 	public int getId() {
 		return id;
@@ -97,8 +117,7 @@ public class StudentAnswer {
 		this.scoreList = scoreList;
 	}
 
-	
-    public List<Boolean> getAnswerList() {
+	public List<Boolean> getAnswerList() {
 		return answerList;
 	}
 
@@ -106,14 +125,12 @@ public class StudentAnswer {
 		this.answerList = answerList;
 	}
 
-	private void addScoretoList(Double score){
-    	this.scoreList.add(score);
-    }
+	private void addScoretoList(Double score) {
+		this.scoreList.add(score);
+	}
 
-	
-    private void addAnswertoList(Boolean bool){
-    	this.answerList.add(bool);
-    }
-
+	private void addAnswertoList(Boolean bool) {
+		this.answerList.add(bool);
+	}
 
 }
