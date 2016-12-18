@@ -47,6 +47,9 @@ public class StudentAnswer {
 	@Column(name = "SUM_SCORE")
 	private double sumScore;
 
+	@Column(name = "MAX_SCORE")
+	private int maxScore;
+
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<Double> scoreList = new ArrayList<Double>();
 
@@ -55,9 +58,11 @@ public class StudentAnswer {
 
 	public void examination(Teszt tests) {
 		int ansListIndex = 0;
-
+		this.scoreList.clear();
+		int max = 0;
 		for (QArepo qarepo : tests.getTestSheet()) {
 			double score = 0.0;
+			max += qarepo.getScore();
 			double mod = (double) qarepo.getScore() / (double) qarepo.getAnswers().size();
 			for (Boolean bol : qarepo.getAnswers()) {
 				if (bol == this.answerList.get(ansListIndex)) {
@@ -75,6 +80,7 @@ public class StudentAnswer {
 
 		}
 		this.sumScore = this.scoreList.stream().mapToDouble(Double::doubleValue).sum();
+		this.maxScore = max;
 	}
 
 	public int getId() {
