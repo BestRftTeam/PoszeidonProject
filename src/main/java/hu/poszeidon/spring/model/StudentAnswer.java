@@ -19,6 +19,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
@@ -56,6 +57,11 @@ public class StudentAnswer {
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<Boolean> answerList = new ArrayList<Boolean>();
 
+	@ManyToOne(fetch = FetchType.EAGER)//,cascade = CascadeType.ALL)
+	@JoinTable(name = "USER_STUDENTANSWER", joinColumns={@JoinColumn(name = "STUDENTANSWER_ID",referencedColumnName = "id")}, inverseJoinColumns = {
+			@JoinColumn(name = "USER_ID",referencedColumnName = "id")})
+	private User user;
+	
 	public void examination(Teszt tests) {
 		int ansListIndex = 0;
 		this.scoreList.clear();

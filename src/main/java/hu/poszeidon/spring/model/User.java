@@ -53,8 +53,7 @@ public class User implements Serializable {
 			@JoinColumn(name = "USER_ROLE_ID") })
 	private Set<UserRole> userRoles = new HashSet<UserRole>();
 	
-//	@NotEmpty
-	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)//cascade = CascadeType.ALL)//
+	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	@JoinTable(name = "USER_COURSE", joinColumns = { @JoinColumn(name = "USER_ID",referencedColumnName = "id") }, inverseJoinColumns = {
 			@JoinColumn(name = "COURSE_ID",referencedColumnName = "id") })
 	private Set<Course> courses ;
@@ -62,7 +61,7 @@ public class User implements Serializable {
 	@OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	@JoinTable(name = "USER_STUDENTANSWER", joinColumns={@JoinColumn(name = "USER_ID",referencedColumnName = "id")}, inverseJoinColumns = {
 			@JoinColumn(name = "STUDENTANSWER_ID",referencedColumnName = "id")})
-	private Set<StudentAnswer> tesztAnsewrs;
+	private Set<StudentAnswer> tesztAnsewrs =  new HashSet<StudentAnswer>();
 	
 	
 	public User(String poszId, String firstName, String lastName, String password, String email, Set<UserRole> userRoles) {
