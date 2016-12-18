@@ -12,5 +12,5 @@ public interface UserRepository extends BaseRepository<User, Integer> {
 	User findByPoszId(String poszId);
 	User findByEmail(String Email);
 	
-
+	User saveAndFlush(User user);
 }

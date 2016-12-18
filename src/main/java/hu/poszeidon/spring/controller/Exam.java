@@ -1,6 +1,8 @@
 package hu.poszeidon.spring.controller;
 
 import java.io.IOException;
+import java.sql.Time;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -38,8 +40,8 @@ import hu.poszeidon.spring.service.UserService;
 /**
  * Servlet implementation class login
  */
-@WebServlet("/pages/SaveExam")
-public class SaveExam extends InitServlet {
+@WebServlet("/pages/StartExam")
+public class Exam extends InitServlet {
 	private static final long serialVersionUID = 2878267318695777395L;
 	
 
@@ -61,7 +63,23 @@ public class SaveExam extends InitServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		Course course = cserv.findBycourseName(request.getParameter("courseName"));
+		System.out.println(course);
+		List<Teszt> tests = course.getTests();
+		Teszt test = new Teszt() ;
+		for (Teszt t : tests){
+			if(t.getAvailability()!=null){
+				test = t;
+				System.out.println(t.getTestSheet().get(0).getAnswerOptions());
+			}
+		}
+		JSONObject object = new JSONObject(test);
+		response.getWriter().write(object.toString());
+		//Date d = new Date();
+		//LocalDateTime ld = LocalDateTime.of(d.getYear(), d.getMonth(), d.getDay(), d.getHours(), d.getMinutes(), d.getSeconds());
+		//test.setStartTime(ld);
+		
+		
 	}
 
 	/**
@@ -80,8 +98,8 @@ public class SaveExam extends InitServlet {
 		//teszt.setTestName(request.getParameter("TesztName"));
 		int year,month,day;
 		String[] tmp = object.getString("availability").split("-");
-		year = Integer.parseInt(tmp[2])-1900;
-		month = Integer.parseInt(tmp[0])-1;
+		year = Integer.parseInt(tmp[2]);
+		month = Integer.parseInt(tmp[0]);
 		day = Integer.parseInt(tmp[1]);
 		teszt.setAvailability(new Date(year,month,day));
 		teszt.setTestName(object.getString("TestName"));

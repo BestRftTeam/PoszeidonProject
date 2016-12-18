@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,12 +25,12 @@ public class QArepo {
 	private String question;
 	
 	@Column(name = "SCORE")
-	private String score;
+	private int score;
 	
-	@ElementCollection
+	@ElementCollection(fetch=FetchType.EAGER)
 	private List<String> answerOptions = new ArrayList<String>();
 	
-	@ElementCollection
+	@ElementCollection(fetch=FetchType.EAGER)
 	private List<Boolean> answers = new ArrayList<Boolean>();
 	
 	
@@ -66,13 +67,14 @@ public class QArepo {
 		this.answers = answers;
 	}
 
-	public String getScore() {
+	public int getScore() {
 		return score;
 	}
 
-	public void setScore(String score) {
+	public void setScore(int score) {
 		this.score = score;
 	}
-	
+
+
 
 }

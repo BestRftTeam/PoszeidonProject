@@ -46,9 +46,18 @@
 							ebut.id = "AddExam";
 							ebut.onclick = function(){
 								window.location.assign("UrlapKeszito.html");
-								
 							}
 							cell.appendChild(ebut);
+							}else{
+								var esbut = document.createElement("BUTTON");
+								esbut.innerHTML = "Start Exam";
+								esbut.id = "StartExam";
+								esbut.onclick = function(){
+									window.location.assign("Exam.html");
+								}
+								var row = table.insertRow(-1);
+								var cell = row.insertCell(0);
+								cell.appendChild(esbut);
 							}
 						}
 					}
@@ -220,5 +229,4 @@
 			}
 		});
 		My_courses_F();
-		
 	});

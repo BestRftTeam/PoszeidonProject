@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import hu.poszeidon.spring.model.StudentAnswer;
 import hu.poszeidon.spring.model.User;
 import hu.poszeidon.spring.repositories.UserRepository;
 
@@ -44,6 +45,12 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findByEmail(Email);
 	}
 
+	@Transactional
+	public void addStudentAnswer(User user,StudentAnswer studentAnswer) {
+		user.addtesztAnsewr(studentAnswer);
+		userRepository.saveAndFlush(user);
+		
+	}
 
 
 }

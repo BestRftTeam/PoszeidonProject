@@ -6,5 +6,7 @@ import hu.poszeidon.spring.model.StudentAnswer;
 
 @Repository("studentAnswer")
 public interface StudentAnswerRepository extends BaseRepository<StudentAnswer, Integer>{
+	
+	StudentAnswer findById(int id); 
 
 }

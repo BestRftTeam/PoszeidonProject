@@ -1,6 +1,8 @@
 package hu.poszeidon.spring.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -29,6 +31,7 @@ import hu.poszeidon.spring.configuration.DbConfiguration;
 import hu.poszeidon.spring.configuration.PoszeidonConfiguration;
 import hu.poszeidon.spring.model.Course;
 import hu.poszeidon.spring.model.QArepo;
+import hu.poszeidon.spring.model.StudentAnswer;
 import hu.poszeidon.spring.model.Teszt;
 import hu.poszeidon.spring.model.User;
 import hu.poszeidon.spring.model.UserRole;
@@ -38,8 +41,8 @@ import hu.poszeidon.spring.service.UserService;
 /**
  * Servlet implementation class login
  */
-@WebServlet("/pages/SaveExam")
-public class SaveExam extends InitServlet {
+@WebServlet("/pages/SaveStudentExam")
+public class SaveStudentExam extends InitServlet {
 	private static final long serialVersionUID = 2878267318695777395L;
 	
 
@@ -69,51 +72,47 @@ public class SaveExam extends InitServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//User user = usv.findByEmail(request.getSession().getAttribute("Username").toString());
+		User user = usv.findByEmail(request.getSession().getAttribute("Username").toString());
 		Course course = cserv.findBycourseName(request.getParameter("courseName"));
-		Teszt teszt = new Teszt();
+		StudentAnswer teszt = new StudentAnswer();
 		System.out.println(request.getParameter("sheet"));
-		
-		//System.out.println(request.getParameter("courseName"));
+		Teszt test = new Teszt();
+
 		JSONObject object = new JSONObject(request.getParameter("sheet"));
-		System.out.println(object.get("availability"));
-		//teszt.setTestName(request.getParameter("TesztName"));
-		int year,month,day;
-		String[] tmp = object.getString("availability").split("-");
-		year = Integer.parseInt(tmp[2])-1900;
-		month = Integer.parseInt(tmp[0])-1;
-		day = Integer.parseInt(tmp[1]);
-		teszt.setAvailability(new Date(year,month,day));
-		teszt.setTestName(object.getString("TestName"));
-		List<QArepo> testSheet = new LinkedList<>();
-		//QArepo Sheet = new QArepo();
+		for (Teszt t : course.getTests()){
+			if (t.getTestName().equals(object.getString("TestName"))) test = t; 
+		}
+		
+
+		teszt.setTestName(test.getTestName());
+		teszt.setId(test.getId());
+		List<Boolean> answerList = new ArrayList<Boolean>();
+		
 		JSONArray jsonarray = object.getJSONArray("questions");
 		for (int i = 0; i < jsonarray.length(); i++) {
-			QArepo Sheet = new QArepo();
+
 			JSONObject question =  (JSONObject) jsonarray.get(i);
-			Sheet.setQuestion(question.getString("Question"));
-			Sheet.setScore(Integer.parseInt(question.getString("Value")));
+
 			JSONObject ans = question.getJSONObject("Answers");
 			JSONArray answerarray = ans.getJSONArray("ans");
-			List<String> answerOptions = new LinkedList<>();
-			List<Boolean> answers = new LinkedList<>();
+
 			for (int j = 0; j < answerarray.length(); j++) {
 				JSONObject answ = answerarray.getJSONObject(j);
-				answerOptions.add(answ.getString("Answer"));
-				if ((boolean) answ.get("True")) answers.add(true);
-				else answers.add(false);
+
+				if ((boolean) answ.get("True")) answerList.add(true);
+				else answerList.add(false);
 			}
-			Sheet.setAnswerOptions(answerOptions);
-			Sheet.setAnswers(answers);
-			testSheet.add(Sheet);
-			System.out.println(Sheet);
+
 		}
-		teszt.setTestSheet(testSheet);
+		System.out.println(answerList);
+		teszt.setAnswerList(answerList);
 		
-		//usv.delete(user);
-		//cserv.save(course);
-		course.addTest(teszt);
-		cserv.save(course);
+
+		
+		System.out.println(teszt);
+		usv.addStudentAnswer(user, teszt);
+
+		//usv.save(user);
 		System.out.println(teszt);
 		
 		//usv.save(user);

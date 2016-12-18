@@ -118,4 +118,9 @@ public class Teszt {
 		this.testSheet.add(qarepo);
 	}
 
+	@Override
+	public String toString() {
+		return "Teszt [testName=" + testName + ", availability=" + availability + ", testSheet=" + testSheet + "]";
+	}
+
 }

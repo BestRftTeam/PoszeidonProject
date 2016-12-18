@@ -129,4 +129,22 @@
     <servlet-name>Logout</servlet-name>
     <url-pattern>/pages/Logout/</url-pattern>
   </servlet-mapping>
+    
+  <servlet>
+    <servlet-name>StartExam</servlet-name>
+    <servlet-class>hu.poszeidon.spring.controller.StartExam</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StartExam</servlet-name>
+    <url-pattern>/pages/StartExam/</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>SaveStudentExam</servlet-name>
+    <servlet-class>hu.poszeidon.spring.controller.SaveStudentExam</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SaveStudentExam</servlet-name>
+    <url-pattern>/pages/SaveStudentExam/</url-pattern>
+  </servlet-mapping>
 </web-app>
