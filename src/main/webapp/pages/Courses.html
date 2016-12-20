@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel='stylesheet prefetch' href='../static/css/bootstrap.css'>
+<script type="text/javascript" src="../static/js/jquery.min.js"></script>
+<meta charset="UTF-8">
+<title>Courses</title>
+</head>
+<body>
+<div class="row">
+	<div class="col-xs-6 col-sm-6 col-md-6" style="width: 20%">
+		<div id = "course_add"></div>
+		
+		<button id = "My_Courses" onclick="My_courses_F()" disabled class = "col-xs-6 col-sm-6 col-md-6">My Courses</button>
+		<button id = "All_Courses" onclick="All_courses_F()"  class = "col-xs-6 col-sm-6 col-md-6">All Courses</button>
+		
+		<table id = "courses_t" class="table table-striped table-hover">
+		</table>
+	</div>
+	<div class="col-xs-6 col-sm-6 col-md-6">
+		<table id = "course_t">
+		<tr>
+		</tr>
+		</table>
+	</div>	
+</div>
+<script type="text/javascript" src="../static/js/courses.js"></script>
+</body>
+</html>

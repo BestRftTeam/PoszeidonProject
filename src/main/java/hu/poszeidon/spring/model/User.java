@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -52,11 +53,34 @@ public class User implements Serializable {
 			@JoinColumn(name = "USER_ROLE_ID") })
 	private Set<UserRole> userRoles = new HashSet<UserRole>();
 	
-//	@NotEmpty
-	@ManyToMany(fetch = FetchType.EAGER)//cascade = CascadeType.ALL)//
+	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	@JoinTable(name = "USER_COURSE", joinColumns = { @JoinColumn(name = "USER_ID",referencedColumnName = "id") }, inverseJoinColumns = {
 			@JoinColumn(name = "COURSE_ID",referencedColumnName = "id") })
 	private Set<Course> courses ;
+
+	@OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	@JoinTable(name = "USER_STUDENTANSWER", joinColumns={@JoinColumn(name = "USER_ID",referencedColumnName = "id")}, inverseJoinColumns = {
+			@JoinColumn(name = "STUDENTANSWER_ID",referencedColumnName = "id")})
+	private Set<StudentAnswer> tesztAnsewrs =  new HashSet<StudentAnswer>();
+	
+	
+	public User(String poszId, String firstName, String lastName, String password, String email, Set<UserRole> userRoles) {
+	this.poszId = poszId;
+	this.firstName = firstName;
+	this.lastName = lastName;
+	this.password = password;
+	this.email = email;
+	this.userRoles = userRoles;
+}
+	public User(String poszId, String firstName, String lastName, String password, String email) {
+	this.poszId = poszId;
+	this.firstName = firstName;
+	this.lastName = lastName;
+	this.password = password;
+	this.email = email;
+}
+	public User() {
+	}
 
 	public int getId() {
 		return id;
@@ -125,7 +149,21 @@ public class User implements Serializable {
 	public void setCourses(Set<Course> courses) {
 		this.courses = courses;
 	}
+	
+	public void addCourse(Course course) {
+		this.courses.add(course);
+	}
 
+	public void addtesztAnsewr(StudentAnswer studentAnswer){
+		this.tesztAnsewrs.add(studentAnswer);
+	}
+	
+	public Set<StudentAnswer> getTesztAnsewrs() {
+		return tesztAnsewrs;
+	}
+	public void setTesztAnsewrs(Set<StudentAnswer> tesztAnsewrs) {
+		this.tesztAnsewrs = tesztAnsewrs;
+	}
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", poszId=" + poszId + ", firstName=" + firstName + ", lastName=" + lastName
@@ -133,6 +171,13 @@ public class User implements Serializable {
 				+ "]";
 	}
 
+	public boolean HasCourse(String CourseName){
+		for (Course c : this.getCourses()){
+			if (c.getCourseName().equals(CourseName)) return true;
+		}
+		return false;
+	}
+	
 
 
 

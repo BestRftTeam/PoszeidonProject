@@ -21,15 +21,15 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
- @EnableJpaRepositories(basePackages = "hu.poszeidon.spring.repositories")
-@ComponentScan({ "hu.poszeidon.spring.configuration" })
+@EnableJpaRepositories(basePackages = "hu.poszeidon.spring.repositories")
+@ComponentScan({ "hu.poszeidon.spring"})
 public class DbConfiguration {
 
 	@Bean
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/sample");
+		dataSource.setUrl("jdbc:mysql://localhost:3306/poszeidonproject");//sample//poszeidonproject
 		dataSource.setUsername("root");
 		dataSource.setPassword("asdQWE123");
 		return dataSource;
@@ -62,7 +62,7 @@ public class DbConfiguration {
 	  }
 	private   Properties additionalProperties() {
 		      Properties properties = new Properties();
-		      properties.setProperty("hibernate.hbm2ddl.auto","update" );//"create");
+		      properties.setProperty("hibernate.hbm2ddl.auto","update" );//"create");//update
 		      properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
 		      properties.setProperty("hibernate.show_sql", "false");
 		      properties.setProperty("hibernate.format_sql", "false");

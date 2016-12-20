@@ -5,7 +5,9 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,10 +24,13 @@ public class QArepo {
 	@Column(name = "QUESTION")
 	private String question;
 	
-	@ElementCollection
+	@Column(name = "SCORE")
+	private int score;
+	
+	@ElementCollection(fetch=FetchType.EAGER)
 	private List<String> answerOptions = new ArrayList<String>();
 	
-	@ElementCollection
+	@ElementCollection(fetch=FetchType.EAGER)
 	private List<Boolean> answers = new ArrayList<Boolean>();
 	
 	
@@ -45,5 +50,31 @@ public class QArepo {
 	public void setQuestion(String question) {
 		this.question = question;
 	}
+
+	public List<String> getAnswerOptions() {
+		return answerOptions;
+	}
+
+	public void setAnswerOptions(List<String> answerOptions) {
+		this.answerOptions = answerOptions;
+	}
+
+	public List<Boolean> getAnswers() {
+		return answers;
+	}
+
+	public void setAnswers(List<Boolean> answers) {
+		this.answers = answers;
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+
 
 }

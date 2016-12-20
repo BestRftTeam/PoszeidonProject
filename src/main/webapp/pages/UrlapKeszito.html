@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html lang=hu>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<script src="../static/js/jquery.min.js"></script>
+		<link href = "../static/css/bootstrap.css" rel="stylesheet" type="text/css">
+		<link href="../static/css/CalendarControl.css" rel="stylesheet" type="text/css">
+		<script src="../static/js/CalendarControl.js"></script>
+
+		<style>
+			body{
+				background-color: #E6E6FA;
+			}
+			#KerdesHozzaadoHead{
+				background-color: teal;
+			}
+			p{
+				text-align: center;
+			}
+			/*#KerdesHozzaadoBody{
+				background-color: lightblue;
+			}*/
+		</style>
+	</head>
+	<body>
+		<div id = "KerdesHozzaadoHead" class="container" >
+			<p>How much question do you want to create?
+				<input id = "i_KerdesekSzama" onkeypress='return event.charCode >= 48 && event.charCode <= 57' style = "width : 30px;">
+				<button id = "b_KerdesHozzaad" onclick="e_KerdesHozzaad()">+</button>
+				Availability: 
+				<input id="Availability" name="Availability" onfocus="showCalendarControl(this);" type="text">
+				<input id="TestName" name="TestName"  type="text">
+				<button id = "Save_Test" onclick="Save_Test()">Save</button>
+				
+			</p>
+		</div>
+		<div id = "KerdesHozzaadoBody" class="container" align="center" ></div>
+		<script src = "../static/js/UrlapKeszito.js"></script>
+		
+	</body>
+</html>
