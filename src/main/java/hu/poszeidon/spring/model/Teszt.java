@@ -120,7 +120,10 @@ public class Teszt {
 
 	@Override
 	public String toString() {
-		return "Teszt [testName=" + testName + ", availability=" + availability + ", testSheet=" + testSheet + "]";
+		return "Teszt [id=" + id + ", testName=" + testName + ", availability=" + availability + ", starDate="
+				+ starDate + ", endDate=" + endDate + ", startTime=" + startTime + ", testSheet=" + testSheet + "]";
 	}
+
+
 
 }

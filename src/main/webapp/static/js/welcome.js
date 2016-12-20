@@ -30,17 +30,17 @@ $(document).ready(function(){
 					if (tmp2[i]=="STUDENT"){
 						document.getElementById("courses").style.visibility = "visible";
 						document.getElementById("exams").style.visibility = "visible";
-						document.getElementById("test").style.visibility = "visible";
+						//document.getElementById("test").style.visibility = "visible";
 						document.getElementById("statistic").style.visibility = "visible";	
 					}
 					if (tmp2[i]=="TEACHER"){
 						document.getElementById("courses").style.visibility = "visible";
 						document.getElementById("exams").style.visibility = "visible";
-						document.getElementById("test").style.visibility = "visible";
+						//document.getElementById("test").style.visibility = "visible";
 					}
 					if (tmp2[i]=="PARENT"){
 						document.getElementById("statistic").style.visibility = "visible";
-						document.getElementById("childrend").style.visibility = "visible";
+						document.getElementById("children").style.visibility = "visible";
 					}
 				}
 				if (document.getElementById("courses").style.visibility==="hidden") $("#courses").remove();

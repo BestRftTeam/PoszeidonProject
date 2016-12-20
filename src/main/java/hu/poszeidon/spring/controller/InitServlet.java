@@ -11,6 +11,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import hu.poszeidon.spring.configuration.DbConfiguration;
+import hu.poszeidon.spring.repositories.TesztRepository;
 import hu.poszeidon.spring.repositories.UserRepository;
 import hu.poszeidon.spring.repositories.UserRoleRepository;
 import hu.poszeidon.spring.service.CourseService;
@@ -26,7 +27,8 @@ public class InitServlet extends HttpServlet{
 	public UserRoleService urs;
 	@Autowired
 	public CourseService cserv;
-
+	@Autowired
+	public TesztRepository trep;
 
 	
     @Override

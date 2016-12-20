@@ -146,5 +146,33 @@
   <servlet-mapping>
     <servlet-name>SaveStudentExam</servlet-name>
     <url-pattern>/pages/SaveStudentExam/</url-pattern>
+  </servlet-mapping>  
+  
+  <servlet>
+    <servlet-name>OneExam</servlet-name>
+    <servlet-class>hu.poszeidon.spring.controller.OneExam</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>OneExam</servlet-name>
+    <url-pattern>/pages/OneExam/</url-pattern>
   </servlet-mapping>
+    
+  <servlet>
+    <servlet-name>GetExam</servlet-name>
+    <servlet-class>hu.poszeidon.spring.controller.GetExam</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetExam</servlet-name>
+    <url-pattern>/pages/GetExam/</url-pattern>
+  </servlet-mapping>
+      
+  <servlet>
+    <servlet-name>GetStudentAnswers</servlet-name>
+    <servlet-class>hu.poszeidon.spring.controller.GetStudentAnswers</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetStudentAnswers</servlet-name>
+    <url-pattern>/pages/GetStudentAnswers/</url-pattern>
+  </servlet-mapping>
+
 </web-app>

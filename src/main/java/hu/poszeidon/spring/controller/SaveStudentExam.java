@@ -1,7 +1,10 @@
 package hu.poszeidon.spring.controller;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
@@ -75,17 +78,30 @@ public class SaveStudentExam extends InitServlet {
 		User user = usv.findByEmail(request.getSession().getAttribute("Username").toString());
 		Course course = cserv.findBycourseName(request.getParameter("courseName"));
 		StudentAnswer teszt = new StudentAnswer();
-		System.out.println(request.getParameter("sheet"));
+		//System.out.println(request.getParameter("sheet"));
 		Teszt test = new Teszt();
-
+		/*Vizsga kezdés/vége mentés, rossz start
+		Date d = new Date();
+		String StartT = request.getParameter("StartTime");
+		System.out.println(StartT);
+		LocalDateTime ld = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		String end = ld.format(formatter);
+		
+		LocalDateTime StartTime = LocalDateTime.parse(d.getYear()+"-"+(d.getMonth()+1)+"-"+d.getDay()+" "+StartT, formatter);
+		LocalDateTime EndTime = LocalDateTime.parse(end, formatter);
+		teszt.setStartTime(StartTime);
+		teszt.setEndTime(EndTime);
+		*/
 		JSONObject object = new JSONObject(request.getParameter("sheet"));
 		for (Teszt t : course.getTests()){
 			if (t.getTestName().equals(object.getString("TestName"))) test = t; 
 		}
 		
-
+		//System.out.println(test);
+		//System.out.println(test.getId());
 		teszt.setTestName(test.getTestName());
-		teszt.setId(test.getId());
+		teszt.setTestID(test.getId());
 		List<Boolean> answerList = new ArrayList<Boolean>();
 		
 		JSONArray jsonarray = object.getJSONArray("questions");
@@ -99,27 +115,26 @@ public class SaveStudentExam extends InitServlet {
 			for (int j = 0; j < answerarray.length(); j++) {
 				JSONObject answ = answerarray.getJSONObject(j);
 
-				if ((boolean) answ.get("True")) answerList.add(true);
-				else answerList.add(false);
+				if ((boolean) answ.get("True")) answerList.add(Boolean.TRUE);
+				else answerList.add(Boolean.FALSE);
 			}
 
 		}
-		System.out.println(answerList);
+
+
+		//System.out.println("studenAnswer<---->"+teszt);
+		//System.out.println(test);
+		
 		teszt.setAnswerList(answerList);
-		
-
-		
-		System.out.println(teszt);
+		teszt.examination(test);
 		usv.addStudentAnswer(user, teszt);
-
-		//usv.save(user);
-		System.out.println(teszt);
 		
-		//usv.save(user);
-
-		//usv.save(user);
+		//System.out.println(teszt);
 		
-		//cserv.save(course);
+		
+		
+		
+	
 	}
 
 }

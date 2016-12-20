@@ -48,16 +48,6 @@ public class Exam extends InitServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-/*
-    @Override
-    public final void init(ServletConfig config) throws ServletException {
-        super.init(config);
-       // WebApplicationContext wac = WebApplicationContextUtils.getWebApplicationContext(config.getServletContext());
-        //wac.getAutowireCapableBeanFactory().autowireBean(this);
-        
-        //AbstractApplicationContext context = new AnnotationConfigApplicationContext(PoszeidonConfiguration.class);
-		//UserService service = (UserService) context.getBean("userService");
-    }*/
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

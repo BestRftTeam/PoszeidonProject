@@ -55,7 +55,7 @@ public class FileUploadServlet extends InitServlet {
             while ((read = filecontent.read(bytes)) != -1) {
                 out.write(bytes, 0, read);
             }
-            writer.println("New file " + fileName + " created at " + path);
+            writer.println("New file has been created.");
             Course course = cserv.findBycourseName(request.getParameter("coursename"));
             Learning learning = new Learning();
             learning.setPath("../Learnings/"+fileName);

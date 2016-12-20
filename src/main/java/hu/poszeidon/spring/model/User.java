@@ -157,6 +157,13 @@ public class User implements Serializable {
 	public void addtesztAnsewr(StudentAnswer studentAnswer){
 		this.tesztAnsewrs.add(studentAnswer);
 	}
+	
+	public Set<StudentAnswer> getTesztAnsewrs() {
+		return tesztAnsewrs;
+	}
+	public void setTesztAnsewrs(Set<StudentAnswer> tesztAnsewrs) {
+		this.tesztAnsewrs = tesztAnsewrs;
+	}
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", poszId=" + poszId + ", firstName=" + firstName + ", lastName=" + lastName

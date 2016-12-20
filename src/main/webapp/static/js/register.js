@@ -1,4 +1,5 @@
 $("#reg").click(function (){
+	if (validateEmail($("#email").val())){
 	if($("#password").val()!=""){
 		if ($("#password").val()==$("#password_confirmation").val()){
 			$.ajax({
@@ -12,7 +13,7 @@ $("#reg").click(function (){
 							Role: $("#role").val()	
 				},
 				success: function(responseText){
-					alert("be");
+					//alert("be");
 					$.ajax({
 						  url: 'RegToLogin',
 						  success: function(responseText){
@@ -21,17 +22,26 @@ $("#reg").click(function (){
 						});
 				},
 				error: function(responseText){
-					//alert("Nem jól töltötte ki valamelyik mezőt!");
-					alert(responseText.responseText);
+					alert("You have filled something wrong");
+					//alert(responseText.responseText);
 				}
 				});
 		}else{
-			alert("Nem egyezik a jelszó és az ellenőrző kód!")
+			alert("Password and confirmation code are not the same");
 		}
 	}else{
-		alert("Nem töltötte ki a jelszó mezőt!")
+		alert("You haven't filled the password field");
+	}
+	}else{
+		alert("Email address is not valid");
 	}
 });
+
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
+
 $("#back").click(function(){
 	//window.location.assign("../");
 	$.ajax({

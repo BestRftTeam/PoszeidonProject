@@ -21,8 +21,8 @@ import hu.poszeidon.spring.model.User;
 /**
  * Servlet implementation class login
  */
-@WebServlet("/pages/course")
-public class course extends InitServlet {
+@WebServlet("/pages/GetExam")
+public class GetExam extends InitServlet {
 	private static final long serialVersionUID = 2878267318695777395L;
 	
 
@@ -47,22 +47,20 @@ public class course extends InitServlet {
 	      User user = usv.findByEmail(course.getCourseLeader());
 	      User cuser = usv.findByEmail(request.getSession().getAttribute("Username").toString());
 	      System.out.println(user.getCourses());
-	      if (cuser.HasCourse(course.getCourseName())){
-	    	  obj.put("Enrolled","Yes");
-	      }else{
-	    	  obj.put("Enrolled", "No");
-	      }
+	      String testname = request.getParameter("testName");
 	      obj.put("courseName", course.getCourseName());
 	      obj.put("courseLeader", user.getFirstName()+" "+user.getLastName());
-	      boolean HadExam = false;
-	      String testName = "";
-	      for (Teszt t : course.getTests()){
-	    	  if (t.getAvailability()!=null) testName = t.getTestName();
+	      Teszt test = new Teszt();
+	      for (Teszt t :course.getTests()){
+	    	  if (t.getTestName().equals(testname)) test = t; 
 	      }
-	      for (StudentAnswer sta : cuser.getTesztAnsewrs()){
-	    	  if (sta.getTestName().equals(testName)) HadExam = true;
+	      
+	      StudentAnswer sta = new StudentAnswer();
+	      Set<StudentAnswer> sans = cuser.getTesztAnsewrs();
+	      for (StudentAnswer sa : sans){
+	    	  if (sa.getTestName().equals(test.getTestName())) sta = sa;
 	      }
-	      obj.put("HadExam", HadExam);
+	      
 	      /*for (Course c : courses){
 	    	  obj.put("courseName", c.getCourseName());
 	    	  System.out.println(obj);
@@ -70,9 +68,9 @@ public class course extends InitServlet {
 	      }*/
 	      re = re.substring(0, re.length()-1);
 	      re +=  "]";
-	      System.out.println(obj.toJSONString());
+	      System.out.println("Valaszok<------>"+obj.toJSONString());
 		  response.getWriter().write(obj.toJSONString());
-		  //response.getWriter().write(request.getSession().getAttribute("role").toString());
+		  
 	}
 
 	/**

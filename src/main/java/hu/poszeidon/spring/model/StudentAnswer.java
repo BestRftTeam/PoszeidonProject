@@ -1,5 +1,6 @@
 package hu.poszeidon.spring.model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -24,6 +25,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CollectionId;
@@ -38,7 +40,7 @@ public class StudentAnswer {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@NotEmpty
+	@NotNull
 	@Column(name = "TEST_ID", nullable = false)
 	private int testID;
 
@@ -51,6 +53,12 @@ public class StudentAnswer {
 	@Column(name = "MAX_SCORE")
 	private int maxScore;
 
+	@Column(name = "END_TIME")
+	private LocalDateTime endTime;
+
+	@Column(name = "START_TIME")
+	private LocalDateTime startTime;
+	
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<Double> scoreList = new ArrayList<Double>();
 
@@ -71,7 +79,7 @@ public class StudentAnswer {
 			max += qarepo.getScore();
 			double mod = (double) qarepo.getScore() / (double) qarepo.getAnswers().size();
 			for (Boolean bol : qarepo.getAnswers()) {
-				if (bol == this.answerList.get(ansListIndex)) {
+				if (bol == this.getAnswerList().get(ansListIndex)) {
 					score += mod;
 				} else {
 					score -= mod;
@@ -143,6 +151,30 @@ public class StudentAnswer {
 
 	private void addAnswertoList(Boolean bool) {
 		this.answerList.add(bool);
+	}
+
+	public int getMaxScore() {
+		return maxScore;
+	}
+
+	public void setMaxScore(int maxScore) {
+		this.maxScore = maxScore;
+	}
+
+	public LocalDateTime getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(LocalDateTime endTime) {
+		this.endTime = endTime;
+	}
+
+	public LocalDateTime getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(LocalDateTime startTime) {
+		this.startTime = startTime;
 	}
 
 	@Override

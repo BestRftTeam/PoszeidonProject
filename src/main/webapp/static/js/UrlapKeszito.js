@@ -113,57 +113,61 @@
 						ans : []
 				};
 				*/
-				var test = {
-						TestName: document.getElementById("TestName").value,
-					    questions: [],
-						availability: document.getElementById("Availability").value,
-					};
-				
-				var questionsnum = parseInt(window.sessionStorage.getItem("kerdesszam"));
-				for (var i = 1;i < (questionsnum+1);i++){
-					var answers = {
-							ans : []
-					};
-					var s = "";
-					for (var j = 1;j<idk[i-1]+1;j++){
-						var tmp = j+"True";
-						if (j===idk[i-1]) {
-							s+= "{Answer:"+document.getElementById(i+"_"+j).value + ",";
-							s+= "True:"+document.getElementById("c_"+i+"_"+j).checked +"}";
+				if (document.getElementById("TestName").value!==""&&document.getElementById("Availability").value!==""){
+					var test = {
+							TestName: document.getElementById("TestName").value,
+						    questions: [],
+							availability: document.getElementById("Availability").value,
+						};
+					
+					var questionsnum = parseInt(window.sessionStorage.getItem("kerdesszam"));
+					for (var i = 1;i < (questionsnum+1);i++){
+						var answers = {
+								ans : []
+						};
+						var s = "";
+						for (var j = 1;j<idk[i-1]+1;j++){
+							var tmp = j+"True";
+							if (j===idk[i-1]) {
+								s+= "{Answer:"+document.getElementById(i+"_"+j).value + ",";
+								s+= "True:"+document.getElementById("c_"+i+"_"+j).checked +"}";
+							}
+							else {
+								s+= "{Answer:"+document.getElementById(i+"_"+j).value + ",";
+								s+= "True:"+document.getElementById("c_"+i+"_"+j).checked +"},";
+							}
+							answers.ans.push({
+								"Answer": document.getElementById(i+"_"+j).value,
+								"True": document.getElementById("c_"+i+"_"+j).checked
+							});
 						}
-						else {
-							s+= "{Answer:"+document.getElementById(i+"_"+j).value + ",";
-							s+= "True:"+document.getElementById("c_"+i+"_"+j).checked +"},";
-						}
-						answers.ans.push({
-							"Answer": document.getElementById(i+"_"+j).value,
-							"True": document.getElementById("c_"+i+"_"+j).checked
+						//alert(answers.ans[0].True)
+						//alert("["+s+"]");
+						
+						//alert(answers.ans.pop().Answer);
+						//alert(answers.ans.pop().Answer);
+						test.questions.push({
+							"Question": document.getElementById("Kerdes_"+i).value,
+							"Value": document.getElementById("KerdesValue_"+i).value,
+							"Answers": answers//"["+s+"]"
 						});
 					}
-					//alert(answers.ans[0].True)
-					//alert("["+s+"]");
-					
-					//alert(answers.ans.pop().Answer);
-					//alert(answers.ans.pop().Answer);
-					test.questions.push({
-						"Question": document.getElementById("Kerdes_"+i).value,
-						"Value": document.getElementById("KerdesValue_"+i).value,
-						"Answers": answers//"["+s+"]"
+					var json = JSON.stringify(test); 
+					//alert(test.questions.pop().yes);
+					//alert(test.questions[0].Answers.ans[1].Answer);
+					$.ajax({
+						url:"SaveExam",
+						type: "POST",
+						data: {"courseName":window.sessionStorage.getItem("coursename"),sheet: json},
+						success: function(responseText){
+							window.location.assign("Courses.html");
+						},
+						error: function(responseText){
+							
+						}
 					});
+				}else{
+					alert("You must fill the availability and the Test Name field");
 				}
-				var json = JSON.stringify(test); 
-				//alert(test.questions.pop().yes);
-				alert(test.questions[0].Answers.ans[1].Answer);
-				$.ajax({
-					url:"SaveExam",
-					type: "POST",
-					data: {"courseName":window.sessionStorage.getItem("coursename"),sheet: json},
-					success: function(responseText){
-						window.location.assign("Courses.html");
-					},
-					error: function(responseText){
-						
-					}
-				});
 			}
 	

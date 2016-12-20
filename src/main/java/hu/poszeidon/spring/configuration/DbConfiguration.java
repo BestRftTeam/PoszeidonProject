@@ -29,7 +29,7 @@ public class DbConfiguration {
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/sample");
+		dataSource.setUrl("jdbc:mysql://localhost:3306/poszeidonproject");//sample//poszeidonproject
 		dataSource.setUsername("root");
 		dataSource.setPassword("asdQWE123");
 		return dataSource;

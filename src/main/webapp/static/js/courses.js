@@ -1,6 +1,7 @@
 	function Course_F(){
 		var coursename = document.getElementById(this.id).innerHTML;
 		window.sessionStorage.setItem("coursename",coursename);
+		var HadExam = false;
 		$.ajax({
 			url: "course",
 			type:"GET",
@@ -9,11 +10,27 @@
 				delete_course_table();
 				var table = document.getElementById("course_t");
 				$.each($.parseJSON(responseText), function(k,v) {
+					if (k==="HadExam") {
+						HadExam = v;
+						if(HadExam===true){
+						if (document.getElementById("StartExam")!==null){
+							document.getElementById("StartExam").remove();
+						}else{}
+						}
+					}else{
 					if (k!=="Enrolled"){
 						var tr = table.insertRow(-1);
 						var td = tr.insertCell(0);
 						td.id = "course_"+v;
-						td.innerHTML = v;
+						if (k==="courseName"){
+							td.innerHTML = "Course: "+v;
+						}else{
+							if (k==="courseLeader"){
+								td.innerHTML = "Course Leader: "+v;
+							}
+						}
+						
+						
 					}else{
 						if (v!=="Yes"){
 							if (document.getElementById("new_course_name")===null){
@@ -30,7 +47,7 @@
 							if (document.getElementById("new_course_name")!==null){
 							var row = table.insertRow(-1);
 							var cell = row.insertCell(0);
-							cell.innerHTML = "<form method=\"POST\" action=\"upload\" enctype=\"multipart/form-data\" >\
+							cell.innerHTML = "<form id = \"upload_form\" method=\"POST\" action=\"upload\" enctype=\"multipart/form-data\" \" >\
             File:\
             <input type=\"file\" name=\"file\" id=\"file\" /> <br/>\
             Destination:\
@@ -48,29 +65,36 @@
 								window.location.assign("UrlapKeszito.html");
 							}
 							cell.appendChild(ebut);
+
 							}else{
-								var esbut = document.createElement("BUTTON");
-								esbut.innerHTML = "Start Exam";
-								esbut.id = "StartExam";
-								esbut.onclick = function(){
-									window.location.assign("Exam.html");
+								if(HadExam===false){
+									var esbut = document.createElement("BUTTON");
+									esbut.innerHTML = "Start Exam";
+									esbut.id = "StartExam";
+									esbut.onclick = function(){
+										window.location.assign("Exam.html");
+									}
+									var row = table.insertRow(-1);
+									var cell = row.insertCell(0);
+									cell.appendChild(esbut);
 								}
-								var row = table.insertRow(-1);
-								var cell = row.insertCell(0);
-								cell.appendChild(esbut);
 							}
 						}
+					}
 					}
 				});
 				
 			}
 		});
 	}
+
 	function File_Download_F(){
-
-
-		
+	
 	}
+	function redirect() {
+		  location.reload();
+		  return false;
+		}
 	function Learnings_F(){
 		$.ajax({
 			url: "Learnings",
@@ -78,7 +102,11 @@
 			success:function(responseText){
 				if (responseText.length>4){
 					var table = document.getElementById("course_t");
+					var row = table.insertRow(-1);
+					var cell = row.insertCell(0);
+					cell.innerHTML = "Learnings: "
 					$.each($.parseJSON(responseText), function(k,v) {
+
 						var tr = table.insertRow(-1);
 						var td = tr.insertCell(0);
 						var name = v.Learning.split("/");
